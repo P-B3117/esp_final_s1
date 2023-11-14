@@ -41,7 +41,7 @@ MatrixPanel_I2S_DMA *dma_display = nullptr;
 HUB75_I2S_CFG mxconfig(
 	PANEL_RES_X,   // module width
 	PANEL_RES_Y,   // module height
-	PANEL_CHAIN    // Chain length
+	PANEL_CHAIN   // Chain length
 );
 
 
@@ -78,8 +78,9 @@ void setup()
  /************** DISPLAY **************/
   Serial.println("...Starting Display");
   dma_display = new MatrixPanel_I2S_DMA(mxconfig);
+  dma_display->setLatBlanking(3);
   dma_display->begin();
-  dma_display->setBrightness8(90); //0-255
+  dma_display->setBrightness8(120); //0-255
 
   dma_display->fillScreenRGB888(128,0,0);
   delay(1000);
@@ -89,59 +90,57 @@ void setup()
   delay(1000);  
   Serial.println("**************** Starting Aurora Effects Demo ****************");
 
-
    // setup the effects generator
   effects.Setup();
 
   delay(500);
-  Serial.println("Effects being loaded: ");
-  patterns.listPatterns();
- 
-
-  patterns.moveRandom(1); // start from a random pattern
-
-  Serial.print("Starting with pattern: ");
-  Serial.println(patterns.getCurrentPatternName());
-  patterns.start();
-  ms_previous = millis();
-  fps_timer = millis();
 }
+
+int16_t v = 126;
 
 void loop()
 {
-    // menu.run(mainMenuItems, mainMenuItemCount);  
-
-  if ( (millis() - ms_previous) > ms_animation_max_duration ) 
-  {
-       patterns.stop();      
-       patterns.moveRandom(12);
-       //patterns.move(1);
-       patterns.start();  
-       
-       Serial.print("Changing pattern to:  ");
-       Serial.println(patterns.getCurrentPatternName());
-        
-       ms_previous = millis();
-
-       // Select a random palette as well
-       //effects.RandomPalette();
+  v=233;
+  
+  for(int x = 0; x < PANEL_RES_X; x++) {
+    for(int y = 0; y < PANEL_RES_Y; y++) {
+      effects.Pixel(0, y, (x+y)%256);
+      effects.ShowFrame();
+      delay(10);
+      Serial.print(x);
+      Serial.print("  ");
+      Serial.print(y);
+      Serial.print("  ");
+      Serial.println(v);
     }
- 
-    if ( 1000 / pattern_fps + last_frame < millis()){
-      last_frame = millis();
-      pattern_fps = patterns.drawFrame();
-      if (!pattern_fps)
-        pattern_fps = default_fps;
+  }
+  /*
+int x = 0;
 
-      ++fps;
-    }
+  for(int y = 0; y < PANEL_RES_Y; y++) {
+      effects.Pixel(0, y, v);
+      effects.ShowFrame();
+      delay(10);
+      Serial.print(x);
+      Serial.print("  ");
+      Serial.print(y);
+      Serial.print("  ");
+      Serial.println(v);
+  }
 
-    if (fps_timer + 1000 < millis()){
-       Serial.printf_P(PSTR("Effect fps: %ld\n"), fps);
-       fps_timer = millis();
-       fps = 0;
-    }
-       
+  v = 126;
+  for(int y = 0; y < PANEL_RES_Y; y++) {
+      effects.Pixel(0, y, v);
+      effects.ShowFrame();
+      delay(10);
+      Serial.print(x);
+      Serial.print("  ");
+      Serial.print(y);
+      Serial.print("  ");
+      Serial.println(v);
+  }
+  */
+
 }
 
 
