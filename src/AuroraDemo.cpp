@@ -53,16 +53,6 @@ HUB75_I2S_CFG mxconfig(
 
 #include <FastLED.h>
 
-#include "Effects.h"
-Effects effects;
-
-#include "Drawable.h"
-#include "Playlist.h"
-//#include "Geometry.h"
-
-#include "Patterns.h"
-Patterns patterns;
-
 /* -------------------------- Some variables -------------------------- */
 unsigned long fps = 0, fps_timer; // fps (this is NOT a matrix refresh rate!)
 unsigned int default_fps = 30, pattern_fps = 30;  // default fps limit (this is not a matrix refresh counter!)
@@ -80,7 +70,7 @@ void setup()
   dma_display = new MatrixPanel_I2S_DMA(mxconfig);
   dma_display->setLatBlanking(3);
   dma_display->begin();
-  dma_display->setBrightness8(240); //0-255
+  dma_display->setBrightness8(255); //0-255
 
   dma_display->fillScreenRGB888(128,0,0);
   delay(1000);
@@ -90,16 +80,32 @@ void setup()
   delay(1000);  
   Serial.println("**************** Starting Aurora Effects Demo ****************");
 
-   // setup the effects generator
-  effects.Setup();
-
+  FastLED.delay(2);
   delay(1000);
 
   for(int x = 0; x < PANEL_RES_X; x++) {
     for(int y = 0; y < PANEL_RES_Y; y++) {
-      //effects.Pixel(0, y, (x+y)%256);
-      //delay(10);
       dma_display->drawPixelRGB888(x,y,(x+y)%256,(x+y)%256,(x+y)%256);
+      
+      Serial.print(0);
+      /*
+      Serial.print(x);
+      Serial.print("  ");
+      Serial.print("  ");
+      Serial.println((x+y)%256);
+      */
+    }
+    Serial.print("\n");
+  }
+  delay(1000);
+  Serial.println("insane");
+  dma_display->clearScreen();
+  Serial.println("wow");
+  delay(1000);
+
+  for(int x = 0; x < PANEL_RES_X; x++) {
+    for(int y = 0; y < PANEL_RES_Y; y++) {
+      dma_display->drawPixel(x,y,(x+y)%256);
       /*
       Serial.print(x);
       Serial.print("  ");
@@ -109,60 +115,16 @@ void setup()
       */
     }
   }
-  Serial.println("insane");
-  //effects.ShowFrame();
-  Serial.println("wow");
+  delay(1000);
+  dma_display->clearScreen();
+  dma_display->print("Dif");
+  dma_display->writeLine(0,0,64,7,128);
 }
 
 int16_t v = 126;
 
 void loop()
 {
-  /*
-  v=233;
   
-  for(int x = 0; x < PANEL_RES_X; x++) {
-    for(int y = 0; y < PANEL_RES_Y; y++) {
-      effects.Pixel(0, y, (x+y)%256);
-      effects.ShowFrame();
-      delay(10);
-      Serial.print(x);
-      Serial.print("  ");
-      Serial.print(y);
-      Serial.print("  ");
-      Serial.println(v);
-    }
-  }
-  
-int x = 0;
 
-  for(int y = 0; y < PANEL_RES_Y; y++) {
-      effects.Pixel(0, y, v);
-      effects.ShowFrame();
-      delay(10);
-      Serial.print(x);
-      Serial.print("  ");
-      Serial.print(y);
-      Serial.print("  ");
-      Serial.println(v);
-  }
-
-  v = 126;
-  for(int y = 0; y < PANEL_RES_Y; y++) {
-      effects.Pixel(0, y, v);
-      effects.ShowFrame();
-      delay(10);
-      Serial.print(x);
-      Serial.print("  ");
-      Serial.print(y);
-      Serial.print("  ");
-      Serial.println(v);
-  }
-  */
-
-}
-
-
-void listPatterns() {
-  patterns.listPatterns();
 }
