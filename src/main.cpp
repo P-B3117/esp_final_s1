@@ -12,4 +12,11 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
 
 void loop() {
 
+  writeDiff(1,'f');
+  delay(500);
+  writeDiff(1,'m');
+  delay(500);
+  writeDiff(1,'D');
+  delay(500);
+
 }

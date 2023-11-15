@@ -91,7 +91,7 @@
     #define B1_PIN_DEFAULT 27
     #define R2_PIN_DEFAULT 14
     #define G2_PIN_DEFAULT 12
-    #define B2_PIN_DEFAULT 12
+    #define B2_PIN_DEFAULT 13
     #define A_PIN_DEFAULT  23
     #define B_PIN_DEFAULT  19
     #define C_PIN_DEFAULT 5
