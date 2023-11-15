@@ -8,7 +8,7 @@
 #define G2_PIN 12
 #define B2_PIN 13
 #define A_PIN 23
-#define B_PIN 19 // Changed from library default
+#define B_PIN 19        // Changed from library default
 #define C_PIN 5
 #define D_PIN 17
 #define E_PIN 32
@@ -25,7 +25,7 @@
 /*
 //Another way of creating config structure
 //Custom pin mapping for all pins
-HUB75_I2S_CFG::i2s_pins _pins={R1, G1, BL1, R2, G2, BL2, CH_A, CH_B, CH_C, CH_D, CH_E, LAT, OE, CLK};
+HUB75_I2S_CFG::i2s_pins _pins={R1_PIN, G1_PIN, B1_PIN, R2_PIN, G2_PIN, B2_PIN, A_PIN, B_PIN, C_PIN, D_PIN, E_PIN, LAT_PIN, OE_PIN, CLK_PIN};
 HUB75_I2S_CFG mxconfig(
 						64,   // width
 						64,   // height
@@ -80,7 +80,7 @@ void setup()
   dma_display = new MatrixPanel_I2S_DMA(mxconfig);
   dma_display->setLatBlanking(3);
   dma_display->begin();
-  dma_display->setBrightness8(120); //0-255
+  dma_display->setBrightness8(240); //0-255
 
   dma_display->fillScreenRGB888(128,0,0);
   delay(1000);
@@ -93,13 +93,32 @@ void setup()
    // setup the effects generator
   effects.Setup();
 
-  delay(500);
+  delay(1000);
+
+  for(int x = 0; x < PANEL_RES_X; x++) {
+    for(int y = 0; y < PANEL_RES_Y; y++) {
+      //effects.Pixel(0, y, (x+y)%256);
+      //delay(10);
+      dma_display->drawPixelRGB888(x,y,(x+y)%256,(x+y)%256,(x+y)%256);
+      /*
+      Serial.print(x);
+      Serial.print("  ");
+      Serial.print(y);
+      Serial.print("  ");
+      Serial.println((x+y)%256);
+      */
+    }
+  }
+  Serial.println("insane");
+  //effects.ShowFrame();
+  Serial.println("wow");
 }
 
 int16_t v = 126;
 
 void loop()
 {
+  /*
   v=233;
   
   for(int x = 0; x < PANEL_RES_X; x++) {
@@ -114,7 +133,7 @@ void loop()
       Serial.println(v);
     }
   }
-  /*
+  
 int x = 0;
 
   for(int y = 0; y < PANEL_RES_Y; y++) {

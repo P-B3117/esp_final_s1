@@ -55,7 +55,7 @@
 #endif
 
 #ifndef MATRIX_HEIGHT
- #define MATRIX_HEIGHT               32   // CHANGE THIS VALUE to 64 IF USING 64px HIGH panel(s) with E PIN
+ #define MATRIX_HEIGHT               64   // CHANGE THIS VALUE to 64 IF USING 64px HIGH panel(s) with E PIN
 #endif
 
 #ifndef CHAIN_LENGTH
@@ -86,21 +86,19 @@
 // Else use default pin mapping for ESP32 Original WROOM module.
 #else 
      
-    #define R1_PIN_DEFAULT  25
-    #define G1_PIN_DEFAULT  26
-    #define B1_PIN_DEFAULT  27
-    #define R2_PIN_DEFAULT  14
-    #define G2_PIN_DEFAULT  12
-    #define B2_PIN_DEFAULT  13
-
-    #define A_PIN_DEFAULT   23
-    #define B_PIN_DEFAULT   22
-    #define C_PIN_DEFAULT   5
-    #define D_PIN_DEFAULT   17
-    #define E_PIN_DEFAULT   -1 // IMPORTANT: Change to a valid pin if using a 64x64px panel.
-              
+    #define R1_PIN_DEFAULT 25
+    #define G1_PIN_DEFAULT 26
+    #define B1_PIN_DEFAULT 27
+    #define R2_PIN_DEFAULT 14
+    #define G2_PIN_DEFAULT 12
+    #define B2_PIN_DEFAULT 12
+    #define A_PIN_DEFAULT  23
+    #define B_PIN_DEFAULT  19
+    #define C_PIN_DEFAULT 5
+    #define D_PIN_DEFAULT  17
+    #define E_PIN_DEFAULT   32 // IMPORTANT: Change to a valid pin if using a 64x64px panel.
     #define LAT_PIN_DEFAULT 4
-    #define OE_PIN_DEFAULT  15
+    #define OE_PIN_DEFAULT 15
     #define CLK_PIN_DEFAULT 16
     
 #endif  
