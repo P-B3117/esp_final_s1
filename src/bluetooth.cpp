@@ -49,7 +49,7 @@ void bluetoothLoop() {
       if (SerialBT.hasClient()==true)
         digitalWrite(LED_STATE_BLUE, HIGH);
       else if (SerialBT.hasClient()!=true){
-        SerialBT.connect(mac_address);
+       // SerialBT.connect(mac_address);
         digitalWrite(LED_STATE_BLUE, LOW);
     }
   
