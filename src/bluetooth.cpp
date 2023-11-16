@@ -29,7 +29,7 @@ void bluetoothInit() {
   
   Serial.begin(115200);
   SerialBT.begin("ESP32 Manette",true); //Bluetooth device name
-  SerialBT.connect(mac_address);
+  //SerialBT.connect(mac_address);//a enlever pour connecter cell
   pinMode(LED_STATE_BLUE, OUTPUT);
   
   
