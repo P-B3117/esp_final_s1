@@ -8,8 +8,9 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
   manetteInit();
   affichageInit();
   bluetoothInit();
+  startChrono(); //pour test le chrono
 }
 
 void loop() {
-
+  updateChrono();
 }
