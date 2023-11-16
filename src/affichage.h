@@ -12,13 +12,21 @@ const uint16_t myWHITE = 65531;
 const uint16_t myYELLOW = 65504;
 const uint16_t myCYAN  = 2047;
 const uint16_t myMAGENTA = 63519;
+const uint16_t myTURQUOISE = 22429;
 const uint16_t myBLACK = 0;
 
-
+void writeBaseScreen();
+void affichageInit();
 void printCursorPosition();
 void displayWrite(int x, int y, String value, uint16_t color = myWHITE);
 void displayWrite(int x, int y, char value, uint16_t color = myWHITE);
 void writeJoueur(int num);
 void writeDiff(int joueur, char dif);
-void writeBaseScreen();
-void affichageInit();
+
+void writePoints(int num);
+void resetPoints();
+void writeBest(int num);
+void resetBest();
+void resetChrono();
+void updateChrono();
+void startChrono(long sec = 30);

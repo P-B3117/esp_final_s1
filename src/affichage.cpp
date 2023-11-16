@@ -59,7 +59,7 @@ void displayWrite(int x, int y, char value, uint16_t color)
 
 void writeJoueur(int num)
 {
-  if (num == 0) num = 48;
+  //if (num == 0) num = 48;
   displayWrite(43, 10, char(num), myGREEN);
 }
 
@@ -71,7 +71,7 @@ void writeDiff(int joueur, char dif)
 
 void writePoints(int num)
 {
-  if (num == 0) num = 48;
+  //if (num == 0) num = 48;
   displayWrite(15, 30, char(num),myGREEN);
 }
 
@@ -82,13 +82,38 @@ void resetPoints()
 
 void writeBest(int num)
 {
-  if (num == 0) num = '0';
+  //if (num == 0) num = '0';
   displayWrite(49, 30, (char)num, myGREEN);
 }
 
-void resetBest(int num)
+void resetBest()
 {
-  displayWrite(15, 30, '0', myGREEN);
+  displayWrite(49, 30, '0', myGREEN);
+}
+
+struct {
+  long endTime;
+  bool isON = false;
+} chrono;
+
+void resetChrono()
+{
+  chrono.isON = false;
+  displayWrite(15, 50, '0', myGREEN);
+}
+
+void updateChrono()
+{
+  if (!chrono.isON) return;
+  if (chrono.endTime < millis()) { chrono.isON = false; return; }
+  displayWrite(15, 50, char(chrono.endTime - millis()), myGREEN);
+}
+
+void startChrono(long sec)
+{
+  chrono.isON = true;
+  chrono.endTime = millis() + sec*1000;
+  displayWrite(15, 50, char(chrono.endTime - millis()), myGREEN);
 }
 
 void writeBaseScreen()
@@ -101,7 +126,9 @@ void writeBaseScreen()
   displayWrite(0,20,"Points", myCYAN);
   resetPoints();
   displayWrite(40,20,"Best", myMAGENTA);
-  writeBest(0);
+  resetBest();
+  displayWrite(0,40,"Chrono", myTURQUOISE);
+  resetChrono();
 
 }
 
