@@ -95,11 +95,11 @@
     #define A_PIN_DEFAULT  23
     #define B_PIN_DEFAULT  19
     #define C_PIN_DEFAULT 5
-    #define D_PIN_DEFAULT  17
+    #define D_PIN_DEFAULT  1
     #define E_PIN_DEFAULT   32 // IMPORTANT: Change to a valid pin if using a 64x64px panel.
     #define LAT_PIN_DEFAULT 4
     #define OE_PIN_DEFAULT 15
-    #define CLK_PIN_DEFAULT 16
+    #define CLK_PIN_DEFAULT 3
     
 #endif  
 
