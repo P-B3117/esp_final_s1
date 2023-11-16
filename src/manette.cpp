@@ -62,7 +62,7 @@ void boucle()
         etatRouge = digitalRead(ROUGE); 
         if (etatRouge == HIGH)
             {
-                Serial.println("Le bouton VERT est au niveau ");
+                Serial.print("Le bouton VERT est au niveau: ");
                 Serial.println(etatVert);
                 j = etatVert;
                 
