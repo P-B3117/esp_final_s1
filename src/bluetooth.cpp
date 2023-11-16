@@ -1,15 +1,16 @@
+//Par Raphael Richard
+//Connection Bluetooth entre ESP32 et cellulaire
+
 //Librairies --------------------------------------------------------------------------------------------
-#include <Arduino.h>
-#include "bluetooth.h"
 #include "BluetoothSerial.h"
+
 //Definition --------------------------------------------------------------------------------------------
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
 
-#if !defined(CONFIG_BT_SPP_ENABLED)
-#error Serial Bluetooth not available or not enabled. It is only available for the ESP32 chip.
-#endif
+
+#define LED_STATE_BLUE 2 // Indique si le bluetooth est connecté
 
 //Constante ---------------------------------------------------------------------------------------------
 
@@ -24,20 +25,34 @@ BluetoothSerial SerialBT;
 uint8_t mac_address[] = {0x58, 0x56, 0x00, 0x00, 0x49, 0xA0};
 
 
-void bluetoothInit()
-{
-  Serial.begin(9600);
-  SerialBT.begin("ESP32 Manette"); //Bluetooth device name
-  SerialBT.connect(mac_address);  // on connecte le esp32 au hc-05
+void bluetoothInit() {
+  
+  Serial.begin(115200);
+  SerialBT.begin("ESP32 Manette",true); //Bluetooth device name
+  SerialBT.connect(mac_address);
+  pinMode(LED_STATE_BLUE, OUTPUT);
+  
+  
+  
   Serial.printf("The device with name \"%s\" is started.\nNow you can pair it with Bluetooth!\n", nomDuEsp32.c_str());
   //Serial.printf("The device with name \"%s\" and MAC address %s is started.\nNow you can pair it with Bluetooth!\n", nomDuEsp32.c_str(), SerialBT.getMacString()); // Use this after the MAC method is implemented
-  #ifdef USE_PIN
-    SerialBT.setPin(pin);
-    Serial.println("Using PIN");
-  #endif
+  
+  //#ifdef USE_PIN
+    //SerialBT.setPin(pin);
+    //Serial.println("Using PIN");
+  //#endif
 }
 
-void bluetoothLoop(){
+void bluetoothLoop() {
+
+  // gestion de connection bluetooth
+      if (SerialBT.hasClient()==true)
+        digitalWrite(LED_STATE_BLUE, HIGH);
+      else if (SerialBT.hasClient()!=true){
+        SerialBT.connect(mac_address);
+        digitalWrite(LED_STATE_BLUE, LOW);
+    }
+  
 
   if (Serial.available()) {
     SerialBT.write(Serial.read()); // pour envoyer un message
@@ -49,5 +64,4 @@ void bluetoothLoop(){
 
   }
   delay(20);
-
 }
