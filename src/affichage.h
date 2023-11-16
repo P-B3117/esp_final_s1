@@ -16,13 +16,13 @@ const uint16_t myTURQUOISE = 22429;
 const uint16_t myBLACK = 0;
 
 void writeBaseScreen();
+void writeTitles();
 void affichageInit();
 void printCursorPosition();
 void displayWrite(int x, int y, String value, uint16_t color = myWHITE);
 void displayWrite(int x, int y, char value, uint16_t color = myWHITE);
 void writeJoueur(int num);
 void writeDiff(int joueur, char dif);
-
 void writePoints(int num);
 void resetPoints();
 void writeBest(int num);
