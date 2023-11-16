@@ -3,3 +3,5 @@
 
 void manetteInit();
 // Tout ce qui va dans la fonction setup() de Arduino, va directement dans la fonction manetteInit()
+
+void boucle ();
