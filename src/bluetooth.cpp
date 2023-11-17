@@ -26,8 +26,6 @@ uint8_t mac_address[] = {0x58, 0x56, 0x00, 0x00, 0x49, 0xA0};
 
 
 void bluetoothInit() {
-  
-  Serial.begin(115200);
   SerialBT.begin("ESP32 Manette",true); //Bluetooth device name
   SerialBT.connect(mac_address);//a enlever pour connecter cell
   pinMode(LED_STATE_BLUE, OUTPUT);
