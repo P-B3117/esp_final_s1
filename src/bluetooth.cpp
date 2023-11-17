@@ -15,7 +15,7 @@
 //Constante ---------------------------------------------------------------------------------------------
 
 //#define USE_PIN // Uncomment this to use PIN during pairing. The pin is specified on the line below
-//const char *pin = "0079"; // Change this to more secure PIN.
+//const char *pin = "1234"; // Change this to more secure PIN.
 
 //Nom du esp32
 String nomDuEsp32 = "ESP32 a Raph";
@@ -29,7 +29,7 @@ void bluetoothInit() {
   
   Serial.begin(115200);
   SerialBT.begin("ESP32 Manette",true); //Bluetooth device name
-  //SerialBT.connect(mac_address);//a enlever pour connecter cell
+  SerialBT.connect(mac_address);//a enlever pour connecter cell
   pinMode(LED_STATE_BLUE, OUTPUT);
   
   
@@ -49,7 +49,7 @@ void bluetoothLoop() {
       if (SerialBT.hasClient()==true)
         digitalWrite(LED_STATE_BLUE, HIGH);
       else if (SerialBT.hasClient()!=true){
-       // SerialBT.connect(mac_address);
+        SerialBT.connect(mac_address);
         digitalWrite(LED_STATE_BLUE, LOW);
     }
   
