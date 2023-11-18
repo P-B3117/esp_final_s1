@@ -127,7 +127,7 @@ void writeTitles()
   displayWrite(28,0,"Joueur", myBLUE);
   displayWrite(0,10,"X-X", myYELLOW);
   displayWrite(0,20,"Points", myCYAN);
-  displayWrite(43,20,"Rec", myMAGENTA);
+  displayWrite(43,20,"REC", myMAGENTA);
   displayWrite(0,40,"Chrono", myTURQUOISE);
 }
 

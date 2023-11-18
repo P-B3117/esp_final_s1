@@ -51,7 +51,7 @@ void bluetoothLoop() {
         digitalWrite(LED_STATE_BLUE, LOW);
     }
   
-
+    
   if (Serial.available()) {
     SerialBT.write(Serial.read()); // pour envoyer un message
     //SerialBT.println("hello"); // pour envoyer un message automatiquement peux aussi etre une variable

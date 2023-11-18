@@ -6,49 +6,26 @@
 
 void manetteInit() //Équivalent de la fonction setup()
 {
-    Serial.begin(9600);
-    //Lecture de la valeur des trois boutons
-    int etatVert;
-    int etatNoir;
-    int etatRouge;
-    etatVert = digitalRead(VERT);
-    etatNoir = digitalRead(NOIR);
-    etatRouge = digitalRead(ROUGE);
-    //Message indiquant les valeurs de chaque bouton et leur couleur
-    if (etatVert == 1)
-        {   
-            Serial.println("Le bouton VERT est appuyé.Niveau 1");
-        }
-    if (etatVert == 2)
-        {   
-            Serial.println("Le bouton VERT est appuyé. Niveau 2.");
-        }
-    if (etatVert == 3)
-        {   
-            Serial.println("Le bouton VERT est appuyé. Niveau 3");
-        }
-    
-    if (etatNoir == HIGH)
-        {   
-            Serial.println("Le bouton NOIR est appuyé. Mode Multijoueur");
-        }
-    else 
-        {   
-            Serial.println("Le bouton NOIR n'est PAS appuyé. Mode Solo");
-        }
-   
-    if (etatRouge == HIGH)
-        {   
-            Serial.println("Le bouton ROUGE est appuyé. Robot Actif");
-        }
-    else 
-        {   
-            Serial.println("Le bouton ROUGE n'est PAS appuyé.Robot Inactif");
-        }
-    }
+    pinMode(VERT, INPUT);
+    pinMode(NOIR, INPUT);
+    pinMode(ROUGE, INPUT);
+}
    
    
-   
+int bVert()
+{
+    return digitalRead(VERT);
+}
+
+bool bNoir()
+{
+    return digitalRead(NOIR);
+}
+
+bool bRouge()
+{
+    return digitalRead(ROUGE);
+}
    
   
    
