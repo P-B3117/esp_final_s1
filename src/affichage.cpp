@@ -69,7 +69,7 @@ void writeDiff(int joueur, char dif)
   displayWrite(0 + joueur*12, 10, dif, myWHITE);
 }
 
-void writePoints(int num)
+void writePoints(int j; int num)
 {
   //if (num == 0) num = 48;
   displayWrite(15, 30, char(num),myGREEN);
