@@ -6,8 +6,6 @@
 
 void manetteInit() //Équivalent de la fonction setup()
 {
-    
-    Serial.begin(9600);
     //Lecture de la valeur des trois boutons
     pinMode(VERT, INPUT);
     pinMode(NOIR, INPUT);
@@ -31,7 +29,6 @@ char boucle()
     {
         niveau = niveau + 0;
     }
-
     if (etatVert == HIGH)
     {
         niveau = niveau + 1;
@@ -82,9 +79,33 @@ char boucle()
                 }
             }
             return'A';
-    }
+}
 
 
+
+
+
+
+
+
+
+
+
+
+int bVert()
+{
+    return digitalRead(VERT);
+}
+
+bool bNoir()
+{
+    return digitalRead(NOIR);
+}
+
+bool bRouge()
+{
+    return digitalRead(ROUGE);
+}
 //Serial.begin(9600); //Débit de lectures de données
 //pinMode(pin, INPUT); Configure le mode d'une pin en tant que entrée (INPUT) ou sortie (OUTPUT)
 //digitalWrite(pin, HIGH);       // Configure l'état d'une pin en spécifiant son numéro et son état (HIGH ou LOW)
