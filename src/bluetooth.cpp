@@ -24,7 +24,7 @@ String nomDuEsp32 = "ESP32 a alex";
 BluetoothSerial SerialBT;
 
 //adresse mac du HC-05
-uint8_t mac_address[] = {0x58, 0x56, 0x00, 0x00, 0x49, 0xA0};
+uint8_t mac_address[] = {0xB8, 0xD6, 0x1A, 0x41, 0xFF, 0xC2};
 
 
 void bluetoothInit() {
@@ -43,25 +43,29 @@ void bluetoothInit() {
   //#endif
 }
 
-void bluetoothLoop() {
+char bluetoothLoop() {
 
   // gestion de connection bluetooth
       if (SerialBT.hasClient()==true)
         digitalWrite(LED_STATE_BLUE, HIGH);
       else if (SerialBT.hasClient()!=true){
         SerialBT.connect(mac_address);
-        digitalWrite(LED_STATE_BLUE, LOW);
-    }
-  
+        Serial.print("non");
+      }
 
-  if (Serial.available()) {
-    SerialBT.write(Serial.read()); // pour envoyer un message
-    //SerialBT.println("hello"); // pour envoyer un message automatiquement peux aussi etre une variable
-
-  }
   if (SerialBT.available()) {
-    Serial.write(SerialBT.read()); //pour lire un message recu
-
+    return (SerialBT.read()); //pour lire un message recu
   }
-  delay(20);
+
+  return '!';
+}
+
+void bluetoothSend(char message)
+{
+    if (Serial.available()) {
+    Serial.println("wow");
+    if (message != NULL) SerialBT.println(message);
+    //SerialBT.write(message); // pour envoyer un message
+    //SerialBT.println("hello"); // pour envoyer un message automatiquement peux aussi etre une variable
+    }
 }

@@ -63,16 +63,37 @@ void writeJoueur(int num)
   displayWrite(43, 10, char(num), myGREEN);
 }
 
-void writeDiff(int joueur, char dif)
+void writeDiff(int joueur, int dif)
 {
-  dif = (toupper(dif));
-  displayWrite(0 + joueur*12, 10, dif, myWHITE);
+  switch (dif)
+  {
+  case 0:
+    displayWrite(0 + joueur*12, 10, 'F', myWHITE);
+    break;
+  
+  case 1:
+    displayWrite(0 + joueur*12, 10, 'M', myWHITE);
+    break;
+    
+  case 2:
+    displayWrite(0 + joueur*12, 10, 'D', myWHITE);
+    break;
+  }
 }
 
-void writePoints(int j; int num)
+void writePoints(int j, int num)
 {
-  //if (num == 0) num = 48;
-  displayWrite(15, 30, char(num),myGREEN);
+  //3 à 12 j1
+  //18 à 30 j2
+  if (j == 0){
+    if (num >= 10) displayWrite(3, 30, String(num),myGREEN);
+    else displayWrite(3, 30, '0' + String(num),myGREEN);
+  }
+  else {
+    if (num >= 10) displayWrite(18, 30, String(num),myGREEN);
+    else displayWrite(18, 30, '0' + String(num),myGREEN);
+  }
+  
 }
 
 void resetPoints()
