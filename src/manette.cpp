@@ -6,89 +6,83 @@
 
 void manetteInit() //Équivalent de la fonction setup()
 {
+    
     Serial.begin(9600);
     //Lecture de la valeur des trois boutons
+    pinMode(VERT, INPUT);
+    pinMode(NOIR, INPUT);
+    pinMode(ROUGE, INPUT);
+    
+}
+ 
+char boucle()
+    {
     int etatVert;
     int etatNoir;
     int etatRouge;
+    int niveau = 0;
     etatVert = digitalRead(VERT);
     etatNoir = digitalRead(NOIR);
     etatRouge = digitalRead(ROUGE);
-    //Message indiquant les valeurs de chaque bouton et leur couleur
-    if (etatVert == 1)
-        {   
-            Serial.println("Le bouton VERT est appuyé.Niveau 1");
-        }
-    if (etatVert == 2)
-        {   
-            Serial.println("Le bouton VERT est appuyé. Niveau 2.");
-        }
-    if (etatVert == 3)
-        {   
-            Serial.println("Le bouton VERT est appuyé. Niveau 3");
-        }
-    
-    if (etatNoir == HIGH)
-        {   
-            Serial.println("Le bouton NOIR est appuyé. Mode Multijoueur");
-        }
-    else 
-        {   
-            Serial.println("Le bouton NOIR n'est PAS appuyé. Mode Solo");
-        }
-   
-    if (etatRouge == HIGH)
-        {   
-            Serial.println("Le bouton ROUGE est appuyé. Robot Actif");
-        }
-    else 
-        {   
-            Serial.println("Le bouton ROUGE n'est PAS appuyé.Robot Inactif");
-        }
-    }
-   
-   
-   
-   
-  
-   
-void boucle()
+        //Stockage de la lecture des trois boutons
+
+    //Configuration du niveau du bouton vert
+    if (etatVert == LOW)
     {
-        int etatRouge;
-        int etatVert;
-        int j=0; //Variable servant à dectecter un changement de niveau du bouton vert
-        int i=0; //Compteur du nombre de fois que le bouton vert a été appuyé
-        etatVert = digitalRead(VERT);
-        etatRouge = digitalRead(ROUGE); 
-        if (etatRouge == HIGH)
-            {
-                Serial.println("Le bouton VERT est au niveau ");
-                Serial.println(etatVert);
-                j = etatVert;
-                
-                if (i > 3) //Note si le bouton vert a été appuyé plus de 3 fois
-                    {
-                        i=1;  
-                    }
-                
-                    etatVert = digitalRead(VERT);
-                    if (j != etatVert)
-                        {
-                            i++;
-                            Serial.println("Le bouton VERT a été appuyé ");
-                            Serial.print(i);
-                            Serial.println("Fois");
-
-                        }
-                    else 
-                        {
-                            Serial.println("Le bouton VERT a été appuyé ");
-                            Serial.print(i);
-                            Serial.println("Fois");
-                        }
-            }
+        niveau = niveau + 0;
     }
 
+    if (etatVert == HIGH)
+    {
+        niveau = niveau + 1;
+    }
+    if (niveau > 3)
+    {
+        niveau = 1;
+    }
+        
+        if (etatRouge == LOW) //Robot en Marche
+            {
+            if (etatNoir == HIGH) //Mode Multijoueur
+                {
+                    if (niveau == 1) //Mode Multijoueur, Niv 1
+                        {
+                            Serial.println("Multijoueur. Niveau 1");
+                            return'3';
+                        }
+                    if (niveau == 2) //Mode Multijoueur, Niv 2
+                        {
+                            Serial.println("Multijoueur. Niveau 2");
+                            return'4'; 
+                        }
+                    if (niveau == 3) //Mode Multijoueur, Niv 3
+                        {
+                            Serial.println("Multijoueur. Niveau 3");
+                            return'5';  
+                        }
+                }
+            
+            if (etatNoir == LOW) //Mode Solo
+                {
+                      if (niveau == 1) //Mode Solo, Niv 1
+                        {
+                            Serial.println("Mode Solo. Niveau 1");
+                            return'0'; 
+                        }
+                    if (niveau == 2) //Mode Solo, Niv 2
+                        {
+                            Serial.println("Mode Solo. Niveau 2");
+                            return'1';  
+                        }
+                    if (niveau == 3) //Mode Solo, Niv 3
+                        {
+                            Serial.println("Mode Solo. Niveau 3");
+                            return'2'; 
+                        }  
+                }
+            }
+            return'A';
+    }
 
 
 //Serial.begin(9600); //Débit de lectures de données
