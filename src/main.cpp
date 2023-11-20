@@ -9,8 +9,6 @@
 #define SYNCHRONISATION2 3
 #define EN_JEU2 4
 
-#define LED_STATE_BLUE 2
-
 int mode = SYNCHRONISATION;
 int difficulte1 = 0;
 int difficulte2 = 0;
@@ -34,7 +32,6 @@ void loop() {
 }
 
 
-/*
 void loop() {
   updateChrono();
   message = bluetoothLoop();
@@ -123,4 +120,3 @@ void loop() {
   break;
   }
 }
-*/

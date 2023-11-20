@@ -6,6 +6,7 @@
 
 /*--------------------- MATRIX GPIO CONFIG  -------------------------*/
 #define R1_PIN 25
+
 #define G1_PIN 26
 #define B1_PIN 27
 #define R2_PIN 14
@@ -63,7 +64,7 @@ void writeJoueur(int num)
   displayWrite(43, 10, char(num), myGREEN);
 }
 
-void writeDiff(int joueur, int dif)
+void writeDiff(int joueur, char dif)
 {
   switch (dif)
   {
@@ -93,7 +94,6 @@ void writePoints(int j, int num)
     if (num >= 10) displayWrite(18, 30, String(num),myGREEN);
     else displayWrite(18, 30, '0' + String(num),myGREEN);
   }
-  
 }
 
 void resetPoints()
@@ -114,31 +114,27 @@ void resetBest()
 
 struct {
   long endTime;
-  long currentTime;
-  long lastTime;
   bool isON = false;
 } chrono;
 
 void resetChrono()
 {
   chrono.isON = false;
-  displayWrite(12, 50, '0', myGREEN);
+  displayWrite(15, 50, '0', myGREEN);
 }
 
 void updateChrono()
 {
   if (!chrono.isON) return;
   if (chrono.endTime < millis()) { chrono.isON = false; return; }
-  chrono.currentTime = ((chrono.endTime - millis())/1000);
-  if (chrono.currentTime < chrono.lastTime && chrono.currentTime >= 10) displayWrite(12, 50, String(chrono.currentTime), myGREEN);
-  else if (chrono.currentTime < chrono.lastTime) displayWrite(12, 50, '0' + String(chrono.currentTime), myGREEN);
-  chrono.lastTime = chrono.currentTime;
+  displayWrite(15, 50, char(chrono.endTime - millis()), myGREEN);
 }
 
 void startChrono(long sec)
 {
   chrono.isON = true;
   chrono.endTime = millis() + sec*1000;
+  displayWrite(15, 50, char(chrono.endTime - millis()), myGREEN);
   displayWrite(12, 50, char(chrono.endTime - millis()), myGREEN);
 }
 
@@ -155,12 +151,16 @@ void writeTitles()
 void writeBaseScreen()
 {
   dma_display->clearScreen();
-  writeTitles();
+  displayWrite(0,0,"NIV", myRED);
+  displayWrite(28,0,"Joueur", myBLUE);
+  displayWrite(0,10,"X-X", myYELLOW);
   writeJoueur(1);
+  displayWrite(0,20,"Points", myCYAN);
   resetPoints();
+  displayWrite(40,20,"Best", myMAGENTA);
   resetBest();
+  displayWrite(0,40,"Chrono", myTURQUOISE);
   resetChrono();
-
 }
 
 void affichageInit()
@@ -169,10 +169,10 @@ void affichageInit()
  /************** DISPLAY **************/
   Serial.println("**************** Starting Display ****************");
   dma_display = new MatrixPanel_I2S_DMA(mxconfig);
-  dma_display->setLatBlanking(2);
+  dma_display->setLatBlanking(1);
   dma_display->begin();
   dma_display->setBrightness8(255); //0-255
-  FastLED.delay(4);
+  FastLED.delay(2);
 
   dma_display->fillScreenRGB888(128,0,0);
   delay(1000);

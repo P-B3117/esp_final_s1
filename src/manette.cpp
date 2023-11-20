@@ -6,12 +6,92 @@
 
 void manetteInit() //Équivalent de la fonction setup()
 {
+    //Lecture de la valeur des trois boutons
     pinMode(VERT, INPUT);
     pinMode(NOIR, INPUT);
     pinMode(ROUGE, INPUT);
+    
 }
-   
-   
+ 
+char boucle()
+    {
+    int etatVert;
+    int etatNoir;
+    int etatRouge;
+    int niveau = 0;
+    etatVert = digitalRead(VERT);
+    etatNoir = digitalRead(NOIR);
+    etatRouge = digitalRead(ROUGE);
+        //Stockage de la lecture des trois boutons
+
+    //Configuration du niveau du bouton vert
+    if (etatVert == LOW)
+    {
+        niveau = niveau + 0;
+    }
+    if (etatVert == HIGH)
+    {
+        niveau = niveau + 1;
+    }
+    if (niveau > 3)
+    {
+        niveau = 1;
+    }
+        
+        if (etatRouge == LOW) //Robot en Marche
+            {
+            if (etatNoir == HIGH) //Mode Multijoueur
+                {
+                    if (niveau == 1) //Mode Multijoueur, Niv 1
+                        {
+                            Serial.println("Multijoueur. Niveau 1");
+                            return'3';
+                        }
+                    if (niveau == 2) //Mode Multijoueur, Niv 2
+                        {
+                            Serial.println("Multijoueur. Niveau 2");
+                            return'4'; 
+                        }
+                    if (niveau == 3) //Mode Multijoueur, Niv 3
+                        {
+                            Serial.println("Multijoueur. Niveau 3");
+                            return'5';  
+                        }
+                }
+            
+            if (etatNoir == LOW) //Mode Solo
+                {
+                      if (niveau == 1) //Mode Solo, Niv 1
+                        {
+                            Serial.println("Mode Solo. Niveau 1");
+                            return'0'; 
+                        }
+                    if (niveau == 2) //Mode Solo, Niv 2
+                        {
+                            Serial.println("Mode Solo. Niveau 2");
+                            return'1';  
+                        }
+                    if (niveau == 3) //Mode Solo, Niv 3
+                        {
+                            Serial.println("Mode Solo. Niveau 3");
+                            return'2'; 
+                        }  
+                }
+            }
+            return'A';
+}
+
+
+
+
+
+
+
+
+
+
+
+
 int bVert()
 {
     return digitalRead(VERT);
@@ -26,48 +106,6 @@ bool bRouge()
 {
     return digitalRead(ROUGE);
 }
-   
-  
-   
-void boucle()
-    {
-        int etatRouge;
-        int etatVert;
-        int j=0; //Variable servant à dectecter un changement de niveau du bouton vert
-        int i=0; //Compteur du nombre de fois que le bouton vert a été appuyé
-        etatVert = digitalRead(VERT);
-        etatRouge = digitalRead(ROUGE); 
-        if (etatRouge == HIGH)
-            {
-                Serial.print("Le bouton VERT est au niveau: ");
-                Serial.println(etatVert);
-                j = etatVert;
-                
-                if (i > 3) //Note si le bouton vert a été appuyé plus de 3 fois
-                    {
-                        i=1;  
-                    }
-                
-                    etatVert = digitalRead(VERT);
-                    if (j != etatVert)
-                        {
-                            i++;
-                            Serial.println("Le bouton VERT a été appuyé ");
-                            Serial.print(i);
-                            Serial.println("Fois");
-
-                        }
-                    else 
-                        {
-                            Serial.println("Le bouton VERT a été appuyé ");
-                            Serial.print(i);
-                            Serial.println("Fois");
-                        }
-            }
-    }
-
-
-
 //Serial.begin(9600); //Débit de lectures de données
 //pinMode(pin, INPUT); Configure le mode d'une pin en tant que entrée (INPUT) ou sortie (OUTPUT)
 //digitalWrite(pin, HIGH);       // Configure l'état d'une pin en spécifiant son numéro et son état (HIGH ou LOW)
