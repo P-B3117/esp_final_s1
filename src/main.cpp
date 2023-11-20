@@ -9,7 +9,9 @@
 #define SYNCHRONISATION2 3
 #define EN_JEU2 4
 
-int mode = 0;
+#define LED_STATE_BLUE 2
+
+int mode = SYNCHRONISATION;
 int difficulte1 = 0;
 int difficulte2 = 0;
 int joueur = 0;
@@ -18,19 +20,25 @@ char message = '!';
 int rec = 0;
 
 void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setup mettez le dans votre fonction init
-  Serial.begin(9600);
   //manetteInit();
   affichageInit();
-  //bluetoothInit();
+  bluetoothInit();
 }
 
-void loop() {}
+void loop() {
+  updateChrono();
+  message = bluetoothLoop();
+  delay(100);
+  if (message != '!') { writeBest((int)message); bluetoothSend('ok');} 
+  
+}
+
 
 /*
 void loop() {
   updateChrono();
   message = bluetoothLoop();
-
+  if (message != '!') Serial.println(message);
   switch (mode)
   {
   case PARAMETRES:
@@ -63,6 +71,7 @@ void loop() {
         break;
       }
     }//bt envoie les données
+    message = '!';
   break;
   
   case SYNCHRONISATION:
@@ -81,8 +90,9 @@ void loop() {
       case 2:
         startChrono(15);
         break;
-       mode = EN_JEU; 
       }
+     mode = EN_JEU;
+    message = '!';
     break;
     }
       
@@ -92,12 +102,14 @@ void loop() {
       pointage[0] += difficulte1+1;
       writePoints(0, pointage[0]);
     }
-    if (message == 'n' && joueur == 1) mode = PARAMETRES;
+    if (message == 'n' && joueur == 0) mode = PARAMETRES;
     else { mode = EN_JEU2; }
+    message = '!';
   break;
     
   case SYNCHRONISATION2:
     if (message == 'n') { startChrono(); mode = EN_JEU2; }
+    message = '!';
   break;
 
   case EN_JEU2:
@@ -107,6 +119,7 @@ void loop() {
       writePoints(1, pointage[1]);
     }
   if (message == 'n') mode = PARAMETRES;
+    message = '!';
   break;
   }
 }

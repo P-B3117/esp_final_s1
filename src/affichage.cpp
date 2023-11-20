@@ -68,15 +68,15 @@ void writeDiff(int joueur, int dif)
   switch (dif)
   {
   case 0:
-    displayWrite(0 + joueur*12, 10, 'F', myWHITE);
+    displayWrite(0 + joueur*12, 10, 'F', myYELLOW);
     break;
   
   case 1:
-    displayWrite(0 + joueur*12, 10, 'M', myWHITE);
+    displayWrite(0 + joueur*12, 10, 'M', myYELLOW);
     break;
     
   case 2:
-    displayWrite(0 + joueur*12, 10, 'D', myWHITE);
+    displayWrite(0 + joueur*12, 10, 'D', myYELLOW);
     break;
   }
 }
@@ -86,8 +86,8 @@ void writePoints(int j, int num)
   //3 à 12 j1
   //18 à 30 j2
   if (j == 0){
-    if (num >= 10) displayWrite(3, 30, String(num),myGREEN);
-    else displayWrite(3, 30, '0' + String(num),myGREEN);
+    if (num >= 10) displayWrite(3, 30, char(num),myGREEN);
+    else displayWrite(3, 30, '0' + char(num),myGREEN);
   }
   else {
     if (num >= 10) displayWrite(18, 30, String(num),myGREEN);
@@ -98,7 +98,7 @@ void writePoints(int j, int num)
 
 void resetPoints()
 {
-  displayWrite(15, 30, '0',myGREEN);
+  displayWrite(3, 30, "00-00",myGREEN);
 }
 
 void writeBest(int num)
@@ -144,12 +144,12 @@ void startChrono(long sec)
 
 void writeTitles()
 {
-  displayWrite(0,0,"NIV", myRED);
-  displayWrite(28,0,"Joueur", myBLUE);
-  displayWrite(0,10,"X-X", myYELLOW);
-  displayWrite(0,20,"Points", myCYAN);
-  displayWrite(43,20,"REC", myMAGENTA);
-  displayWrite(0,40,"Chrono", myTURQUOISE);
+  displayWrite(0,0,"NIV", myGREEN);
+  displayWrite(28,0,"Joueur", myGREEN);
+  displayWrite(0,10,"X-X", myGREEN);
+  displayWrite(0,20,"Points", myGREEN);
+  displayWrite(43,20,"REC", myGREEN);
+  displayWrite(0,40,"Chrono", myGREEN);
 }
 
 void writeBaseScreen()
@@ -176,7 +176,7 @@ void affichageInit()
 
   dma_display->fillScreenRGB888(128,0,0);
   delay(1000);
-  dma_display->fillScreenRGB888(0,0,128);
+  dma_display->fillScreenRGB888(0,128,0);
   delay(1000);
   dma_display->clearScreen();  
   delay(1000);

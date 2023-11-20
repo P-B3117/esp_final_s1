@@ -28,7 +28,8 @@ uint8_t mac_address[] = {0xB8, 0xD6, 0x1A, 0x41, 0xFF, 0xC2};
 
 
 void bluetoothInit() {
-  SerialBT.begin("ESP32 Manette",true); //Bluetooth device name
+  SerialBT.begin("ESP32 Manette",true);
+  //Serial.begin(9600); //Bluetooth device name
  // SerialBT.connect(mac_address);//a enlever pour connecter cell
   pinMode(LED_STATE_BLUE, OUTPUT);
   
@@ -47,10 +48,9 @@ char bluetoothLoop() {
 
   // gestion de connection bluetooth
       if (SerialBT.hasClient()==true)
-        digitalWrite(LED_STATE_BLUE, HIGH);
+        {}//digitalWrite(LED_STATE_BLUE, HIGH);
       else if (SerialBT.hasClient()!=true){
         SerialBT.connect(mac_address);
-        Serial.print("non");
       }
 
   if (SerialBT.available()) {
@@ -62,10 +62,7 @@ char bluetoothLoop() {
 
 void bluetoothSend(char message)
 {
-    if (Serial.available()) {
-    Serial.println("wow");
-    if (message != NULL) SerialBT.println(message);
-    //SerialBT.write(message); // pour envoyer un message
-    //SerialBT.println("hello"); // pour envoyer un message automatiquement peux aussi etre une variable
-    }
+      digitalWrite(LED_STATE_BLUE, HIGH);
+    SerialBT.write(message);
+    digitalWrite(LED_STATE_BLUE, LOW);
 }
