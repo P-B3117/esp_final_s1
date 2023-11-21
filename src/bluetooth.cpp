@@ -23,7 +23,7 @@ String nomDuEsp32 = "ESP32 a Raph";
 BluetoothSerial SerialBT;
 
 //adresse mac du HC-05
-uint8_t mac_address[] = {0x58, 0x56, 0x00, 0x00, 0x49, 0xA0};
+uint8_t mac_address[] = {0xB8, 0xD6, 0x1A, 0x41, 0xFF, 0xC2};
 
 void bluetoothInit() {
   SerialBT.begin("ESP32 Manette",true);
@@ -41,7 +41,7 @@ void bluetoothInit() {
 char bluetoothLoop(){
   // gestion de connection bluetooth
       if (SerialBT.hasClient()==true)
-        {}//digitalWrite(LED_STATE_BLUE, HIGH);
+        digitalWrite(LED_STATE_BLUE, HIGH);
       else if (SerialBT.hasClient()!=true){
         SerialBT.connect(mac_address);
       }
@@ -55,7 +55,7 @@ char bluetoothLoop(){
 
 void bluetoothSend(char message)
 {
-      digitalWrite(LED_STATE_BLUE, HIGH);
-    SerialBT.write(message);
-    digitalWrite(LED_STATE_BLUE, LOW);
+    //digitalWrite(LED_STATE_BLUE, LOW);
+    //SerialBT.write(message);
+    //digitalWrite(LED_STATE_BLUE, HIGH);
 }

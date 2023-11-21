@@ -9,45 +9,53 @@
 #define SYNCHRONISATION2 3
 #define EN_JEU2 4
 
-int mode = SYNCHRONISATION;
+int mode = PARAMETRES;
 int difficulte1 = 0;
 int difficulte2 = 0;
 int joueur = 0;
-int pointage[2];
+int pointage0 = 0;
+int pointage1 = 0;
 char message = '!';
 int rec = 0;
+long nextMillis = 0;
 
 void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setup mettez le dans votre fonction init
-  //manetteInit();
   affichageInit();
-  bluetoothInit();
+  manetteInit();
+  //bluetoothInit();
 }
 
-void loop() {
-  updateChrono();
+/*
+void loop()
+{
   message = bluetoothLoop();
-  delay(100);
-  if (message != '!') { writeBest((int)message); bluetoothSend('ok');} 
-  
+  if (message != '!') writePoints(1,rand()%99);
 }
+*/
 
 
 void loop() {
-  updateChrono();
-  message = bluetoothLoop();
+  //updateChrono();
+  //message = bluetoothLoop();
   if (message != '!') Serial.println(message);
   switch (mode)
   {
   case PARAMETRES:
-    if (bVert()) difficulte1 = ((difficulte1 + 1) % 3);
+  
+    if (nextMillis <= millis())
+    {
+    nextMillis = millis() + 400;
 
-    if (bNoir()) joueur = 0;
+    if (bVert() == HIGH) difficulte1 = ((difficulte1 + 1) % 3);
+
+    if (bNoir() == HIGH) joueur = 0;
     else joueur = 1;
 
-    writeJoueur(joueur + 1);
-    writeDiff(joueur, difficulte1);
+    writeJoueur((joueur));
+    writeDiff(0, difficulte1);
+    
 
-    if (bRouge())
+    if (bRouge() == LOW)
     {
       switch (difficulte1)
       {
@@ -67,6 +75,8 @@ void loop() {
         else bluetoothSend('5');
         break;
       }
+    }
+
     }//bt envoie les données
     message = '!';
   break;
@@ -96,10 +106,10 @@ void loop() {
   case EN_JEU:
     if (message == 'r') 
     {
-      pointage[0] += difficulte1+1;
-      writePoints(0, pointage[0]);
+      pointage0 += difficulte1 + 1;
+      writePoints(0, pointage0);
     }
-    if (message == 'n' && joueur == 0) mode = PARAMETRES;
+    if (message == 'n' && joueur == 0) { mode = PARAMETRES; }
     else { mode = EN_JEU2; }
     message = '!';
   break;
@@ -112,8 +122,8 @@ void loop() {
   case EN_JEU2:
   if (message == 'r') 
     {
-      pointage[0] += difficulte1+1;
-      writePoints(1, pointage[1]);
+      pointage1 += difficulte1+1;
+      writePoints(1, pointage1);
     }
   if (message == 'n') mode = PARAMETRES;
     message = '!';

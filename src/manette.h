@@ -6,7 +6,7 @@ void manetteInit();
 
 char boucle ();
 
-int bVert();
+bool bVert();
 
 bool bNoir();
 

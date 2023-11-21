@@ -1,15 +1,18 @@
 #include "manette.h"
 #include <Arduino.h>
-#define VERT 33
+#define VERT 36
 #define NOIR 34
 #define ROUGE 35
+
+#define LED_STATE_BLUE 2
 
 void manetteInit() //Équivalent de la fonction setup()
 {
     //Lecture de la valeur des trois boutons
-    pinMode(VERT, INPUT);
-    pinMode(NOIR, INPUT);
-    pinMode(ROUGE, INPUT);
+    pinMode(VERT, INPUT_PULLDOWN);
+    pinMode(NOIR, INPUT_PULLDOWN);
+    pinMode(ROUGE, INPUT_PULLDOWN);
+    pinMode(LED_STATE_BLUE, OUTPUT);
     
 }
  
@@ -92,7 +95,7 @@ char boucle()
 
 
 
-int bVert()
+bool bVert()
 {
     return digitalRead(VERT);
 }
@@ -104,6 +107,8 @@ bool bNoir()
 
 bool bRouge()
 {
+    if (digitalRead(ROUGE)  == HIGH) digitalWrite(LED_STATE_BLUE, HIGH);
+    else digitalWrite(LED_STATE_BLUE, LOW);
     return digitalRead(ROUGE);
 }
 //Serial.begin(9600); //Débit de lectures de données

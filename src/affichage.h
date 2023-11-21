@@ -23,7 +23,7 @@ void displayWrite(int x, int y, char value, uint16_t color = myWHITE);
 void writeJoueur(int num);
 void writeDiff(int joueur, char dif);
 
-void writePoints(int num);
+void writePoints(int j, int num);
 void resetPoints();
 void writeBest(int num);
 void resetBest();
