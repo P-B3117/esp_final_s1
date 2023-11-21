@@ -23,6 +23,7 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
   affichageInit();
   manetteInit();
   //bluetoothInit();
+  startChrono();
 }
 
 /*
@@ -35,9 +36,8 @@ void loop()
 
 
 void loop() {
-  //updateChrono();
-  //message = bluetoothLoop();
-  if (message != '!') Serial.println(message);
+  updateChrono();
+  message = bluetoothLoop();
   switch (mode)
   {
   case PARAMETRES:
@@ -48,7 +48,7 @@ void loop() {
 
     if (bVert() == HIGH) difficulte1 = ((difficulte1 + 1) % 3);
 
-    if (bNoir() == HIGH) joueur = 0;
+    if (bNoir() == LOW) joueur = 0;
     else joueur = 1;
 
     writeJoueur((joueur));

@@ -86,7 +86,7 @@
 // Else use default pin mapping for ESP32 Original WROOM module.
 #else 
      
-    #define R1_PIN_DEFAULT 17
+    #define R1_PIN_DEFAULT 5
     #define G1_PIN_DEFAULT 16
     #define B1_PIN_DEFAULT -1
     //gnd
@@ -100,7 +100,7 @@
     #define D_PIN_DEFAULT  1
     #define CLK_PIN_DEFAULT 3
     #define LAT_PIN_DEFAULT 18
-    #define OE_PIN_DEFAULT 5
+    #define OE_PIN_DEFAULT 17
     
 #endif  
 

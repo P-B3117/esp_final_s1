@@ -30,11 +30,10 @@ void bluetoothInit() {
   //Serial.begin(9600); //Bluetooth device name
  // SerialBT.connect(mac_address);//a enlever pour connecter cell
   pinMode(LED_STATE_BLUE, OUTPUT);
-  Serial.printf("The device with name \"%s\" is started.\nNow you can pair it with Bluetooth!\n", nomDuEsp32.c_str());
   //Serial.printf("The device with name \"%s\" and MAC address %s is started.\nNow you can pair it with Bluetooth!\n", nomDuEsp32.c_str(), SerialBT.getMacString()); // Use this after the MAC method is implemented
   #ifdef USE_PIN
     SerialBT.setPin(pin);
-    Serial.println("Using PIN");
+    //Serial.println("Using PIN");
   #endif
 }
 
@@ -56,6 +55,6 @@ char bluetoothLoop(){
 void bluetoothSend(char message)
 {
     //digitalWrite(LED_STATE_BLUE, LOW);
-    //SerialBT.write(message);
+    SerialBT.write(message);
     //digitalWrite(LED_STATE_BLUE, HIGH);
 }

@@ -60,8 +60,7 @@ void displayWrite(int x, int y, char value, uint16_t color)
 
 void writeJoueur(int num)
 {
-  if (num == 0) displayWrite(43, 10, '1', myGREEN);
-  else displayWrite(43, 10, '2', myGREEN);
+  displayWrite(43, 10, String(num + 1), myGREEN);
 }
 
 void writeDiff(int joueur, char dif)
@@ -87,8 +86,8 @@ void writePoints(int j, int num)
   //3 à 12 j1
   //18 à 30 j2
   if (j == 0){
-    if (num >= 10) displayWrite(4, 30, char(num),myGREEN);
-    else displayWrite(4, 30, '0' + char(num),myGREEN);
+    if (num >= 10) displayWrite(4, 30, String(num),myGREEN);
+    else displayWrite(4, 30, '0' + String(num),myGREEN);
   }
   else {
     if (num >= 10) displayWrite(22, 30, String(num),myGREEN);
@@ -113,39 +112,41 @@ void resetBest()
 }
 
 struct {
-  long endTime;
+  unsigned long endTime;
   bool isON = false;
 } chrono;
 
 void resetChrono()
 {
   chrono.isON = false;
-  displayWrite(16, 50, '0', myGREEN);
+  displayWrite(13, 50, "00", myGREEN);
 }
 
 void updateChrono()
 {
   if (!chrono.isON) return;
-  if (chrono.endTime < millis()) { chrono.isON = false; return; }
-  displayWrite(16, 50, char(chrono.endTime - millis()), myGREEN);
+  if (chrono.endTime < millis()) { chrono.isON = false; resetChrono(); return; }
+  if ( (chrono.endTime - millis()) / 1000 < 10) { displayWrite(13, 50, '0', myGREEN); displayWrite(19, 50, String((chrono.endTime - millis())/1000), myGREEN); }
+  else displayWrite(13, 50, String((chrono.endTime - millis())/1000), myGREEN);
+  return;
 }
 
 void startChrono(long sec)
 {
   chrono.isON = true;
   chrono.endTime = millis() + sec*1000;
-  displayWrite(16, 50, char(chrono.endTime - millis()), myGREEN);
+  //displayWrite(16, 50, char(chrono.endTime - millis()), myGREEN);
   displayWrite(13, 50, char(chrono.endTime - millis()), myGREEN);
 }
 
 void writeTitles()
 {
-  displayWrite(1,0,"NIV", myGREEN);
-  displayWrite(28,0,"Joueur", myGREEN);
+  displayWrite(1,0,"NIV", myRED);
+  displayWrite(28,0,"Joueur", myRED);
   displayWrite(1,10,"X-X", myGREEN);
-  displayWrite(1,20,"Points", myGREEN);
-  displayWrite(43,20,"REC", myGREEN);
-  displayWrite(1,40,"Chrono", myGREEN);
+  displayWrite(1,20,"Points", myRED);
+  displayWrite(43,20,"REC", myRED);
+  displayWrite(1,40,"Chrono", myRED);
 }
 
 void writeBaseScreen()
@@ -162,7 +163,7 @@ void affichageInit()
 {
   
  /************** DISPLAY **************/
-  Serial.println("**************** Starting Display ****************");
+  //Serial.println("**************** Starting Display ****************");
   dma_display = new MatrixPanel_I2S_DMA(mxconfig);
   dma_display->setLatBlanking(0);
 
@@ -179,5 +180,5 @@ void affichageInit()
 
   writeBaseScreen();
 
-  Serial.println("**************** Display Ready ****************");
+  //Serial.println("**************** Display Ready ****************");
 }

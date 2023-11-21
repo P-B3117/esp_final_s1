@@ -47,17 +47,17 @@ char boucle()
                 {
                     if (niveau == 1) //Mode Multijoueur, Niv 1
                         {
-                            Serial.println("Multijoueur. Niveau 1");
+                            //Serial.println("Multijoueur. Niveau 1");
                             return'3';
                         }
                     if (niveau == 2) //Mode Multijoueur, Niv 2
                         {
-                            Serial.println("Multijoueur. Niveau 2");
+                            //Serial.println("Multijoueur. Niveau 2");
                             return'4'; 
                         }
                     if (niveau == 3) //Mode Multijoueur, Niv 3
                         {
-                            Serial.println("Multijoueur. Niveau 3");
+                            //Serial.println("Multijoueur. Niveau 3");
                             return'5';  
                         }
                 }
@@ -66,17 +66,17 @@ char boucle()
                 {
                       if (niveau == 1) //Mode Solo, Niv 1
                         {
-                            Serial.println("Mode Solo. Niveau 1");
+                            //Serial.println("Mode Solo. Niveau 1");
                             return'0'; 
                         }
                     if (niveau == 2) //Mode Solo, Niv 2
                         {
-                            Serial.println("Mode Solo. Niveau 2");
+                            //Serial.println("Mode Solo. Niveau 2");
                             return'1';  
                         }
                     if (niveau == 3) //Mode Solo, Niv 3
                         {
-                            Serial.println("Mode Solo. Niveau 3");
+                            //Serial.println("Mode Solo. Niveau 3");
                             return'2'; 
                         }  
                 }
