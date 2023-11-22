@@ -166,9 +166,10 @@ void affichageInit()
   //Serial.println("**************** Starting Display ****************");
   dma_display = new MatrixPanel_I2S_DMA(mxconfig);
   dma_display->setLatBlanking(0);
-
+  dma_display->invertDisplay(true);
   dma_display->begin();
   dma_display->setBrightness8(255); //0-255
+  
   //FastLED.delay(2);
 
   dma_display->fillScreenRGB888(128,0,0);

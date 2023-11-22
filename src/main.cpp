@@ -22,8 +22,8 @@ long nextMillis = 0;
 void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setup mettez le dans votre fonction init
   affichageInit();
   manetteInit();
-  //bluetoothInit();
-  startChrono();
+  bluetoothInit();
+  //startChrono();
 }
 
 /*
