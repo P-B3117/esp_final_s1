@@ -28,7 +28,7 @@ uint8_t mac_address[] = {0xB8, 0xD6, 0x1A, 0x41, 0xFF, 0xC2};
 void bluetoothInit() {
   SerialBT.begin("ESP32 Manette",true);
   //Serial.begin(9600); //Bluetooth device name
- // SerialBT.connect(mac_address);//a enlever pour connecter cell
+  SerialBT.connect(mac_address);//a enlever pour connecter cell
   pinMode(LED_STATE_BLUE, OUTPUT);
   //Serial.printf("The device with name \"%s\" and MAC address %s is started.\nNow you can pair it with Bluetooth!\n", nomDuEsp32.c_str(), SerialBT.getMacString()); // Use this after the MAC method is implemented
   #ifdef USE_PIN
