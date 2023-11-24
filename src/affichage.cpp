@@ -63,22 +63,9 @@ void writeJoueur(int num)
   displayWrite(43, 10, String(num + 1), myGREEN);
 }
 
-void writeDiff(int joueur, char dif)
+void writeDiff(char dif)
 {
-  switch (dif)
-  {
-  case 0:
-    displayWrite(1 + joueur*12, 10, 'F', myGREEN);
-    break;
-  
-  case 1:
-    displayWrite(1 + joueur*12, 10, 'M', myGREEN);
-    break;
-    
-  case 2:
-    displayWrite(1 + joueur*12, 10, 'D', myGREEN);
-    break;
-  }
+    displayWrite(7, 10, dif, myGREEN);
 }
 
 void writePoints(int j, int num)
@@ -143,7 +130,7 @@ void writeTitles()
 {
   displayWrite(1,0,"NIV", myRED);
   displayWrite(28,0,"Joueur", myRED);
-  displayWrite(1,10,"X-X", myGREEN);
+  displayWrite(7,10,"X", myGREEN);
   displayWrite(1,20,"Points", myRED);
   displayWrite(43,20,"REC", myRED);
   displayWrite(1,40,"Chrono", myRED);

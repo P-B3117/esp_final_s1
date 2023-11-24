@@ -180,7 +180,8 @@ bool MatrixPanel_I2S_DMA::allocateDMAmemory()
     }
     
     #if SERIAL_DEBUG  
-      Serial.printf_P(PSTR("Raised lsbMsbTransitionBit to %d/%d to fit in remaining RAM\r\n"), lsbMsbTransitionBit, PIXEL_COLOR_DEPTH_BITS - 1);
+      
+      .printf_P(PSTR("Raised lsbMsbTransitionBit to %d/%d to fit in remaining RAM\r\n"), lsbMsbTransitionBit, PIXEL_COLOR_DEPTH_BITS - 1);
     #endif
 
 

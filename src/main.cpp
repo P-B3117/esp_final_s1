@@ -10,8 +10,7 @@
 #define EN_JEU2 4
 
 int mode = PARAMETRES;
-int difficulte1 = 0;
-int difficulte2 = 0;
+int difficulte = 0;
 int joueur = 0;
 int pointage0 = 0;
 int pointage1 = 0;
@@ -46,18 +45,18 @@ void loop() {
     {
     nextMillis = millis() + 400;
 
-    if (bVert() == HIGH) difficulte1 = ((difficulte1 + 1) % 3);
+    if (bVert() == HIGH) difficulte = ((difficulte + 1) % 3);
 
     if (bNoir() == LOW) joueur = 0;
     else joueur = 1;
 
     writeJoueur((joueur));
-    writeDiff(0, difficulte1);
+    writeDiff(difficulte);
     
 
     if (bRouge() == LOW)
     {
-      switch (difficulte1)
+      switch (difficulte)
       {
       case 0:
         if (joueur == 1) bluetoothSend('0');
@@ -75,6 +74,8 @@ void loop() {
         else bluetoothSend('5');
         break;
       }
+
+      mode = SYNCHRONISATION;
     }
 
     }//bt envoie les données
@@ -84,7 +85,7 @@ void loop() {
   case SYNCHRONISATION:
     if (message == 'n') 
     { 
-      switch (difficulte1)
+      switch (difficulte)
       {
       case 0:
         startChrono(30);
@@ -106,7 +107,7 @@ void loop() {
   case EN_JEU:
     if (message == 'r') 
     {
-      pointage0 += difficulte1 + 1;
+      pointage0 += difficulte + 1;
       writePoints(0, pointage0);
     }
     if (message == 'n' && joueur == 0) { mode = PARAMETRES; }
@@ -122,7 +123,7 @@ void loop() {
   case EN_JEU2:
   if (message == 'r') 
     {
-      pointage1 += difficulte1+1;
+      pointage1 += difficulte + 1;
       writePoints(1, pointage1);
     }
   if (message == 'n') mode = PARAMETRES;
