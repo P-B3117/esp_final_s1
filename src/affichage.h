@@ -21,7 +21,7 @@ void printCursorPosition();
 void displayWrite(int x, int y, String value, uint16_t color = myWHITE);
 void displayWrite(int x, int y, char value, uint16_t color = myWHITE);
 void writeJoueur(int num);
-void writeDiff(char dif);
+void writeDiff(int dif);
 
 void writePoints(int j, int num);
 void resetPoints();

@@ -56,6 +56,7 @@ void loop() {
 
     if (bRouge() == LOW)
     {
+      /*
       switch (difficulte)
       {
       case 0:
@@ -74,8 +75,8 @@ void loop() {
         else bluetoothSend('5');
         break;
       }
-
-      mode = SYNCHRONISATION;
+      */
+      mode = EN_JEU;
     }
 
     }//bt envoie les données
@@ -110,8 +111,12 @@ void loop() {
       pointage0 += difficulte + 1;
       writePoints(0, pointage0);
     }
-    if (message == 'n' && joueur == 0) { mode = PARAMETRES; }
-    else { mode = EN_JEU2; }
+    if (message == 'n') 
+    { 
+      if (joueur == 0) { mode = PARAMETRES; }
+      else { mode = SYNCHRONISATION2; } 
+    }
+    
     message = '!';
   break;
     
