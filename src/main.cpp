@@ -59,19 +59,19 @@ void loop() {
       switch (difficulte)
       {
       case 0:
-        if (joueur == 1) bluetoothSend('3');
-        else bluetoothSend('0');
+        if (joueur == 1) bluetoothSend('0');
+        else bluetoothSend('3');
         break;
       
       case 1:
-        if (joueur == 1) bluetoothSend('4');
-        else bluetoothSend('1');
+        if (joueur == 1) bluetoothSend('1');
+        else bluetoothSend('4');
         break;
 
         
       case 2:
-        if (joueur == 1) bluetoothSend('5');
-        else bluetoothSend('2');
+        if (joueur == 1) bluetoothSend('2');
+        else bluetoothSend('5');
         break;
       }
 
