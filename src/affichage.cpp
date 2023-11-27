@@ -103,7 +103,7 @@ void resetPoints()
 void writeBest(int num)
 {
   //if (num == 0) num = '0';
-  displayWrite(49, 30, (char)num, myGREEN);
+  displayWrite(49, 30, String(num), myGREEN);
 }
 
 void resetBest()

@@ -17,6 +17,7 @@ int pointage1 = 0;
 char message = '!';
 int rec = 0;
 long nextMillis = 0;
+bool rougePushed = true;
 
 void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setup mettez le dans votre fonction init
   affichageInit();
@@ -54,36 +55,37 @@ void loop() {
     writeDiff(difficulte);
     
 
-    if (bRouge() == LOW)
+    if (bRouge() == LOW && !rougePushed)
     {
-      /*
       switch (difficulte)
       {
       case 0:
-        if (joueur == 1) bluetoothSend('0');
-        else bluetoothSend('3');
+        if (joueur == 1) bluetoothSend('3');
+        else bluetoothSend('0');
         break;
       
       case 1:
-        if (joueur == 1) bluetoothSend('1');
-        else bluetoothSend('4');
+        if (joueur == 1) bluetoothSend('4');
+        else bluetoothSend('1');
         break;
 
         
       case 2:
-        if (joueur == 1) bluetoothSend('2');
-        else bluetoothSend('5');
+        if (joueur == 1) bluetoothSend('5');
+        else bluetoothSend('2');
         break;
       }
-      */
-      mode = EN_JEU;
+      mode = SYNCHRONISATION;
+      rougePushed = true;
     }
+    else if (bRouge() == HIGH && rougePushed) rougePushed = false;
 
     }//bt envoie les données
     message = '!';
   break;
   
   case SYNCHRONISATION:
+  writeBest(15);
     if (message == 'n') 
     { 
       switch (difficulte)
@@ -106,6 +108,7 @@ void loop() {
     }
       
   case EN_JEU:
+  writeBest(20);
     if (message == 'r') 
     {
       pointage0 += difficulte + 1;
