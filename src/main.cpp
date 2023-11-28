@@ -41,7 +41,7 @@ void loop() {
   switch (mode)
   {
   case PARAMETRES:
-  
+    resetEtape();
     if (nextMillis <= millis())
     {
     nextMillis = millis() + 400;
@@ -85,7 +85,8 @@ void loop() {
   break;
   
   case SYNCHRONISATION:
-  writeBest(15);
+    writeEtape("SY");
+
     if (message == 'n') 
     { 
       switch (difficulte)
@@ -108,7 +109,7 @@ void loop() {
     }
       
   case EN_JEU:
-  writeBest(20);
+    writeEtape("EJ");
     if (message == 'r') 
     {
       pointage0 += difficulte + 1;
@@ -124,11 +125,13 @@ void loop() {
   break;
     
   case SYNCHRONISATION2:
+  writeEtape("SY2");
     if (message == 'n') { startChrono(); mode = EN_JEU2; }
     message = '!';
   break;
 
   case EN_JEU2:
+    writeEtape("EJ2");
   if (message == 'r') 
     {
       pointage1 += difficulte + 1;

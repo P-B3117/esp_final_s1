@@ -22,7 +22,6 @@ void displayWrite(int x, int y, String value, uint16_t color = myWHITE);
 void displayWrite(int x, int y, char value, uint16_t color = myWHITE);
 void writeJoueur(int num);
 void writeDiff(int dif);
-
 void writePoints(int j, int num);
 void resetPoints();
 void writeBest(int num);
@@ -30,3 +29,5 @@ void resetBest();
 void resetChrono();
 void updateChrono();
 void startChrono(long sec = 30);
+void writeEtape(String etape);
+void resetEtape();

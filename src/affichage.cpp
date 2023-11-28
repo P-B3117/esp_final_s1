@@ -111,6 +111,16 @@ void resetBest()
   displayWrite(49, 30, '0', myGREEN);
 }
 
+void resetEtape()
+{
+  displayWrite(43, 50, "PAR", myGREEN);
+}
+
+void writeEtape(String etape)
+{
+  displayWrite(43, 50, etape, myGREEN);
+}
+
 struct {
   unsigned long endTime;
   bool isON = false;
@@ -147,6 +157,7 @@ void writeTitles()
   displayWrite(1,20,"Points", myRED);
   displayWrite(43,20,"REC", myRED);
   displayWrite(1,40,"Chrono", myRED);
+  displayWrite(43, 40, "ETA", myRED);
 }
 
 void writeBaseScreen()
