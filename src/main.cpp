@@ -8,6 +8,8 @@
 #define EN_JEU 2
 #define SYNCHRONISATION2 3
 #define EN_JEU2 4
+#define NEXT 110
+#define REUSSI 114
 
 int mode = PARAMETRES;
 int difficulte = 0;
@@ -36,13 +38,14 @@ void loop()
 
 
 void loop() {
-  //updateChrono();
+  updateChrono();
   message = bluetoothLoop();
-  //writeEtape(String('n'));
+  //writeEtape(String(NEXT));
   switch (mode)
   {
   case PARAMETRES:
-    //resetEtape();
+    writeEtape("PAR");
+    writeBest(rec);
     if (message != '!') writeEtape(String(message));
     if (nextMillis <= millis())
     {
@@ -87,9 +90,9 @@ void loop() {
   break;
   
   case SYNCHRONISATION:
-    //writeEtape("SY ");
-    if (message != '!') writeEtape(String(' ' + message));
-    if (message == 'n') 
+    writeEtape("SY ");
+    //if (message != '!') writeEtape(String(message));
+    if (message == NEXT) 
     { 
       switch (difficulte)
       {
@@ -105,23 +108,29 @@ void loop() {
         startChrono(15);
         break;
       }
-      //writeEtape("EJ ");
-     mode = EN_JEU;
+    mode = EN_JEU;
     message = '!';
     }
     break;
       
   case EN_JEU:
-    //writeEtape("EJ ");
-    if (message != '!') writeEtape(String(' ' + ' ' + message));
-    if (message == 'r') 
+    writeEtape("EJ ");
+    if (message == REUSSI) 
     {
       pointage0 += difficulte + 1;
+      if (pointage0 > rec) rec = pointage0;
+      writeBest(rec);
       writePoints(0, pointage0);
     }
-    if (message == 'n') 
+    if (message == NEXT) 
     { 
-      if (joueur == 0) { mode = PARAMETRES; }
+      if (joueur == 0) { 
+   
+       writeBaseScreen();
+       mode = PARAMETRES;
+       pointage0 = 0;
+       pointage1 = 0;
+       }
       else { mode = SYNCHRONISATION2; } 
     }
     
@@ -129,21 +138,45 @@ void loop() {
   break;
     
   case SYNCHRONISATION2:
-  //writeEtape("SY2");
+  resetChrono();
+  writeEtape("SY2");
     if (message != '!') writeEtape(String(message));
-    if (message == 'n') { startChrono(); mode = EN_JEU2; }
+    if (message == NEXT) {
+      switch (difficulte)
+      {
+      case 0:
+        startChrono(30);
+        break;
+      
+      case 1:
+        startChrono(20);
+        break;
+
+      case 2:
+        startChrono(40);
+        break;
+      }
+       mode = EN_JEU2; }
     message = '!';
   break;
 
   case EN_JEU2:
-    //writeEtape("EJ2");
+    writeEtape("EJ2");
     if (message != '!') writeEtape(String(message));
-  if (message == 'r') 
+  if (message == REUSSI) 
     {
       pointage1 += difficulte + 1;
       writePoints(1, pointage1);
+      if (pointage1 > rec) rec = pointage1;
+      writeBest(rec);
     }
-  if (message == 'n') mode = PARAMETRES;
+  if (message == NEXT) 
+  {
+    writeBaseScreen();
+    mode = PARAMETRES;
+    pointage0 = 0;
+    pointage1 = 0;
+  }
     message = '!';
   break;
   }

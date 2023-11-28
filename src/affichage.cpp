@@ -113,7 +113,7 @@ void resetBest()
 
 void resetEtape()
 {
-  displayWrite(43, 50, "PAR", myGREEN);
+  displayWrite(43, 50, "XXX", myGREEN);
 }
 
 void writeEtape(String etape)
@@ -167,8 +167,8 @@ void writeBaseScreen()
   writeTitles();
   //writeJoueur(1);
   resetPoints();
-  resetBest();
   resetChrono();
+  resetEtape();
 }
 
 void affichageInit()
