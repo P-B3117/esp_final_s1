@@ -36,12 +36,14 @@ void loop()
 
 
 void loop() {
-  updateChrono();
+  //updateChrono();
   message = bluetoothLoop();
+  //writeEtape(String('n'));
   switch (mode)
   {
   case PARAMETRES:
-    resetEtape();
+    //resetEtape();
+    if (message != '!') writeEtape(String(message));
     if (nextMillis <= millis())
     {
     nextMillis = millis() + 400;
@@ -85,8 +87,8 @@ void loop() {
   break;
   
   case SYNCHRONISATION:
-    writeEtape("SY");
-
+    //writeEtape("SY ");
+    if (message != '!') writeEtape(String(' ' + message));
     if (message == 'n') 
     { 
       switch (difficulte)
@@ -103,13 +105,15 @@ void loop() {
         startChrono(15);
         break;
       }
+      //writeEtape("EJ ");
      mode = EN_JEU;
     message = '!';
-    break;
     }
+    break;
       
   case EN_JEU:
-    writeEtape("EJ");
+    //writeEtape("EJ ");
+    if (message != '!') writeEtape(String(' ' + ' ' + message));
     if (message == 'r') 
     {
       pointage0 += difficulte + 1;
@@ -125,13 +129,15 @@ void loop() {
   break;
     
   case SYNCHRONISATION2:
-  writeEtape("SY2");
+  //writeEtape("SY2");
+    if (message != '!') writeEtape(String(message));
     if (message == 'n') { startChrono(); mode = EN_JEU2; }
     message = '!';
   break;
 
   case EN_JEU2:
-    writeEtape("EJ2");
+    //writeEtape("EJ2");
+    if (message != '!') writeEtape(String(message));
   if (message == 'r') 
     {
       pointage1 += difficulte + 1;

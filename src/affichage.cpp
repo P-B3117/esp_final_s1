@@ -134,10 +134,11 @@ void resetChrono()
 
 void updateChrono()
 {
+  long currentTime = millis();
   if (!chrono.isON) return;
-  if (chrono.endTime < millis()) { chrono.isON = false; resetChrono(); return; }
-  if ( (chrono.endTime - millis()) / 1000 < 10) { displayWrite(13, 50, '0', myGREEN); displayWrite(19, 50, String((chrono.endTime - millis())/1000), myGREEN); }
-  else displayWrite(13, 50, String((chrono.endTime - millis())/1000), myGREEN);
+  if (chrono.endTime < currentTime) { chrono.isON = false; resetChrono(); return; }
+  if ( (chrono.endTime - currentTime) / 1000 < 10) { displayWrite(13, 50, '0', myGREEN); displayWrite(19, 50, String((chrono.endTime - currentTime/1000), myGREEN)); }
+  else displayWrite(13, 50, String((chrono.endTime - currentTime)/1000), myGREEN);
   return;
 }
 
