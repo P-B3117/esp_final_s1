@@ -1,8 +1,17 @@
 #pragma once
 /*
- * ESP32_I2S_PARALLEL_DMA
+ * ESP32_I2S_PARALLEL_DMA (Version 3)
+ * 
+ * Author:      Mrfaptastic @ https://github.com/mrfaptastic/
+ * 
+ * Description: Multi-ESP32 product DMA setup functions for WROOM & S2, S3 mcu's.
+ *
+ * Credits:
+ *  1) https://www.esp32.com/viewtopic.php?f=17&t=3188          for original ref. implementation 
+ *  2) https://github.com/TobleMiner/esp_i2s_parallel           for a cleaner implementation
+ *
  */
- 
+
 #pragma once
 
 #if defined(ESP32) || defined(IDF_VER)

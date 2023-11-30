@@ -1,3 +1,16 @@
+/********
+Fichier: affichage.cpp 
+Auteurs: 
+Alexis Lechasseur
+Charles Poulin-Bergevin
+Raphael Richard
+Vincent Taylor
+Xavier Robidoux
+Anis Bouabid
+Jordan Klaus Kodjio Kousso 
+Date: 30 Novembre 2023
+Description: affichage de la matrice
+********/
 #include "ESP32-HUB75-MatrixPanel-I2S-DMA.h"
 #include <FastLED.h>
 #include "affichage.h"

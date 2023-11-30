@@ -1,3 +1,16 @@
+/********
+Fichier: manette.cpp 
+Auteurs: 
+Alexis Lechasseur
+Charles Poulin-Bergevin
+Raphael Richard
+Vincent Taylor
+Xavier Robidoux
+Anis Bouabid
+Jordan Klaus Kodjio Kousso 
+Date: 30 Novembre 2023
+Description: code de la manette
+********/
 #include "manette.h"
 #include <Arduino.h>
 #define VERT 36

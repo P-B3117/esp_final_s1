@@ -1,3 +1,16 @@
+/********
+Fichier: affichage.h 
+Auteurs: 
+Alexis Lechasseur
+Charles Poulin-Bergevin
+Raphael Richard
+Vincent Taylor
+Xavier Robidoux
+Anis Bouabid
+Jordan Klaus Kodjio Kousso 
+Date: 30 Novembre 2023
+Description: .h de l'affichage de la matrice
+********/
 #pragma once
 #ifndef String
 #include <string>
